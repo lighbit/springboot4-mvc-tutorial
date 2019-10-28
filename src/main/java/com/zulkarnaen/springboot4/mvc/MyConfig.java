@@ -15,10 +15,13 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import com.zulkarnaen.springboot4.mvc.model.Pizza;
 
@@ -26,19 +29,36 @@ import com.zulkarnaen.springboot4.mvc.model.Pizza;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.zulkarnaen.springboot4.mvc")
 public class MyConfig extends WebMvcConfigurerAdapter {
-
-	/*
-	 * Configure View Resolver
+	
+	/**
+	 * Configure TilesConfigurer.
 	 */
 	@Bean
-	public ViewResolver jspViewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views/");
-		viewResolver.setSuffix(".jsp");
-
-		return viewResolver;
+	public TilesConfigurer tilesConfigurer() {
+		TilesConfigurer tilesConfigurer = new TilesConfigurer();
+		tilesConfigurer.setDefinitions(new String[] { "/WEB-INF/views/**/tiles.xml" });
+		tilesConfigurer.setCheckRefresh(true);
+		return tilesConfigurer;
 	}
+	
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		TilesViewResolver viewResolver = new TilesViewResolver();
+		registry.viewResolver(viewResolver);
+	}
+
+//	/*
+//	 * Configure View Resolver
+//	 */
+//	@Bean
+//	public ViewResolver jspViewResolver() {
+//		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//		viewResolver.setViewClass(JstlView.class);
+//		viewResolver.setPrefix("/WEB-INF/views/pages/");
+//		viewResolver.setSuffix(".jsp");
+//
+//		return viewResolver;
+//	}
 
 	/*
 	 * Configure ResourceHandlers to serve static resources like CSS/ Javascript
@@ -83,7 +103,7 @@ public class MyConfig extends WebMvcConfigurerAdapter {
 
 		resolvers.add(jaxb2MarshallingXmlViewResolver());
 		resolvers.add(jsonViewResolver());
-		resolvers.add(jspViewResolver());
+//		resolvers.add(jspViewResolver());
 //		resolvers.add(pdfViewResolver());
 		resolvers.add(excelViewResolver());
 

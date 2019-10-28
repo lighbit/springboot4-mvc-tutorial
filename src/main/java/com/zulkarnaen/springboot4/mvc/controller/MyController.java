@@ -116,6 +116,21 @@ public class MyController {
 
 	}
 
+	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
+	public String homePage(ModelMap model) {
+		return "home";
+	}
+
+	@RequestMapping(value = { "/products" }, method = RequestMethod.GET)
+	public String productsPage(ModelMap model) {
+		return "products";
+	}
+
+	@RequestMapping(value = { "/contactus" }, method = RequestMethod.GET)
+	public String contactUsPage(ModelMap model) {
+		return "contactus";
+	}
+
 }
 
 /*
