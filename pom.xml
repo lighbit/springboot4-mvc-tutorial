@@ -10,7 +10,7 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<springframework.version>4.2.6.RELEASE</springframework.version>
-		<hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
+		<hibernate.validator.version>5.3.5.Final</hibernate.validator.version>
 		<javax.validation.version>1.1.0.Final</javax.validation.version>
 		<apachetiles.version>3.0.5</apachetiles.version>
 	</properties>
